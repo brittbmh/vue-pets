@@ -10,7 +10,7 @@ export default [
         notes: 'Pure breed. Trained for competitions.'
     },
     {
-        name: 'Hillary',
+        name: 'Amber',
         breed: 'mut',
         gender: 'female',
         age: 17,
