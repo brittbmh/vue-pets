@@ -2,6 +2,8 @@
   <div class="home">
     <h1>Adopt a new best friend</h1>
     <p>Current Animals Available: {{ animalsCount }}</p>
+    <p>Cats: {{getAllCats.length}}</p>
+    <p>Dogs: {{getAllDogs.length}}</p>
     <button class="btn btn-primary" @click="togglePetForm">Add New Pet</button>
     <b-form @submit.prevent="handleSubmit" v-if="showPetForm">
       <b-form-group id="input-group-2" label="Pet's Name:" label-for="input-2">
@@ -9,7 +11,7 @@
       </b-form-group>
 
       <b-form-group id="input-group-3" label="Species:" label-for="input-3">
-        <b-form-select id="input-3" v-model="formData.species" :options="['cats', 'dogs']" required></b-form-select>
+        <b-form-select id="input-3" v-model="formData.species" :options="['cat', 'dog']" required></b-form-select>
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Pet's Age:" label-for="input-2">
@@ -38,7 +40,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'animalsCount'
+      'animalsCount',
+      'getAllCats',
+      'getAllDogs'
     ])
   },
   methods: {
@@ -50,11 +54,13 @@ export default {
     },
     handleSubmit() {
       const { species, age, name } = this.formData
+      let animalType = (species === 'dog' ? 'dogs' : 'cats')
       const payload = {
-        species,
+        animalType,
         pet: {
           name,
-          age
+          age,
+          species
         }
       }
       this.addPet(payload)
